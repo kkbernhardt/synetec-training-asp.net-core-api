@@ -159,8 +159,24 @@ namespace CityInfo.API.Controllers
                 "value": "updated - central park"
                 }
             ]*/
+        }
 
+        [HttpDelete]
+        public IActionResult  DeletePointOfInterest(int cityId, int id)
+        {
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            if (city == null)
+            {
+                return NotFound();
+            }
 
+            var pointOfInterestFromStore = city.PointOfInterest.FirstOrDefault(p => p.Id == id);
+            if (pointOfInterestFromStore == null)
+            {
+                return NotFound();
+            }
+            city.PointOfInterest.Remove(pointOfInterestFromStore);
+            return NoContent();
         }
     }
 }
