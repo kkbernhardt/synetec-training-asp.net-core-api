@@ -44,6 +44,12 @@ namespace CityInfo.API.Controllers
             {
                 return BadRequest();
             }
+
+            if (pointOfInterest.Description == pointOfInterest.Name)
+            {
+                ModelState.AddModelError("Description", "The provided description should be different from the name.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest();
