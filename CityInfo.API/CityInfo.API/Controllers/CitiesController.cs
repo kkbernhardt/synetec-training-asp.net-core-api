@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace CityInfo.API.Controllers
 {
+    [Route("api/cities")]
     public class CitiesController : Controller
     {
-        [HttpGet("api/cities")]
+        [HttpGet]
         public JsonResult GetCities()
         {
             return new JsonResult(new List<object>()
