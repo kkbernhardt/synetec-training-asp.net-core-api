@@ -1,0 +1,1 @@
+# synetec-training-asp.net-core-api
