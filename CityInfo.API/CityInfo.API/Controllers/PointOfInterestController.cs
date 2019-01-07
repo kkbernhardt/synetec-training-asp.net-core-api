@@ -161,7 +161,7 @@ namespace CityInfo.API.Controllers
             ]*/
         }
 
-        [HttpDelete]
+        [HttpDelete("{cityId}")]
         public IActionResult  DeletePointOfInterest(int cityId, int id)
         {
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
