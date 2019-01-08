@@ -180,11 +180,15 @@ namespace CityInfo.API.Controllers
             {
                 return NotFound();
             }
-            //if exist we remove
-            
+            //if exist we remove it and save changes
+            cityInfoRepository.DeletePointOfInterest(pointOfInterestEntity);
+            if (!cityInfoRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
 
-            mailService.Send("Point of interest deleted.", $"Point of interest {pointOfInterestFromStore.Name}" +
-                $"with id {pointOfInterestFromStore.Id} was deleted.");
+            mailService.Send("Point of interest deleted.", $"Point of interest {pointOfInterestEntity.Name}" +
+                $"with id {pointOfInterestEntity.Id} was deleted.");
             return NoContent();
         }
     }
