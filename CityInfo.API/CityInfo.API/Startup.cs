@@ -64,6 +64,10 @@ namespace CityInfo.API
             }
             cityInfoContext.EnsureSeedDataForContext();
             app.UseStatusCodePages();
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<City, Models.CityWithoutPointOfInterestDto>();
+            });
             app.UseMvc();
 
             app.Run(async (context) =>
