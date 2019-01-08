@@ -169,20 +169,19 @@ namespace CityInfo.API.Controllers
         [HttpDelete("{cityId}/pointsofinterest/{id}")]
         public IActionResult  DeletePointOfInterest(int cityId, int id)
         {
-            //check if they exist
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            //check if the city exist
+            if (!cityInfoRepository.CityExist(cityId))
             {
                 return NotFound();
             }
-
-            var pointOfInterestFromStore = city.PointOfInterest.FirstOrDefault(p => p.Id == id);
-            if (pointOfInterestFromStore == null)
+            //if yes we look for it
+            var pointOfInterestEntity = cityInfoRepository.GetPointOfInterestForCity(cityId, id);
+            if (pointOfInterestEntity == null)
             {
                 return NotFound();
             }
             //if exist we remove
-            city.PointOfInterest.Remove(pointOfInterestFromStore);
+            
 
             mailService.Send("Point of interest deleted.", $"Point of interest {pointOfInterestFromStore.Name}" +
                 $"with id {pointOfInterestFromStore.Id} was deleted.");
