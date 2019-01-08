@@ -129,38 +129,33 @@ namespace CityInfo.API.Controllers
             {
                 return BadRequest();
             }
-
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            if (!cityInfoRepository.CityExist(cityId))
             {
                 return NotFound();
             }
 
-            var pointOfInterestFromStore = city.PointOfInterest.FirstOrDefault(p => p.Id == id);
-            if (pointOfInterestFromStore == null)
+            var pointOfInterestEntity = cityInfoRepository.GetPointOfInterestForCity(cityId, id);
+            if (pointOfInterestEntity == null)
             {
                 return NotFound();
             }
 
-            var pointOfInterestToPatch =
-                new PointOfInterestForUpdateDto()
-                {
-                    Name = pointOfInterestFromStore.Name,
-                    Description = pointOfInterestFromStore.Description
-                };
+            var pointOfInterestToPatch = Mapper.Map<PointOfInterestForUpdateDto>(pointOfInterestEntity);
 
             patchDoc.ApplyTo(pointOfInterestToPatch, ModelState);
+            
+            TryValidateModel(pointOfInterestToPatch);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (pointOfInterestToPatch.Description == pointOfInterestToPatch.Name)
+            Mapper.Map(pointOfInterestToPatch, pointOfInterestEntity);
+            if (!cityInfoRepository.Save())
             {
-                ModelState.AddModelError("Description", "The provided description should be different from the name.");
+                return StatusCode(500, "A problem happened while handling your request.");
             }
-            pointOfInterestFromStore.Name = pointOfInterestToPatch.Name;
-            pointOfInterestFromStore.Description = pointOfInterestToPatch.Description;
             return NoContent();
+
             /*Patch request should look like this:
             [
                 {
