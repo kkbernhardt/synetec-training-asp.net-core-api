@@ -22,8 +22,6 @@ namespace CityInfo.API.Controllers
         [HttpGet]
         public IActionResult GetCities()
         {
-            //with inmemory database:
-            //return Ok(CitiesDataStore.Current.Cities);
             var cityEntities = cityInfoRepository.GetCities();
             var results = Mapper.Map<IEnumerable<CityWithoutPointOfInterestDto>>(cityEntities);
             return Ok(results);
@@ -47,15 +45,6 @@ namespace CityInfo.API.Controllers
 
             var cityWithOutPointsOfInterestResult = Mapper.Map<CityWithoutPointOfInterestDto>(city);
             return Ok(cityWithOutPointsOfInterestResult);
-
-            /* used for inmemory database
-            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
-            if (cityToReturn == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(cityToReturn);*/
         }
     }
 }

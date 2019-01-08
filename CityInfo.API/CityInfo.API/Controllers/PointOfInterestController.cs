@@ -48,18 +48,6 @@ namespace CityInfo.API.Controllers
             }
             var pointOfInterestResult = Mapper.Map<PointOfInterestDto>(pointOfInterest);
             return Ok(pointOfInterestResult);
-            /*for using inmemory database
-             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
-            {
-                return NotFound();
-            }
-            var pointOfInterest = city.PointOfInterest.FirstOrDefault(p => p.Id == id);
-            if (pointOfInterest == null)
-            {
-                return NotFound();
-            }
-            return Ok(pointOfInterest);*/
         }
 
         [HttpPost("{cityId}/pointsofinterest")]
