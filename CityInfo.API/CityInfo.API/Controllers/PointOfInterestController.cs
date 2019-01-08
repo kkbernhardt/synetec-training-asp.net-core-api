@@ -69,20 +69,12 @@ namespace CityInfo.API.Controllers
                 return BadRequest();
             }
 
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-
-            if (city == null)
+            if (!cityInfoRepository.CityExist(cityId))
             {
                 return NotFound();
             }
-            var maxPointOfInterestId = CitiesDataStore.Current.Cities.
-                SelectMany(c => c.PointOfInterest).Max(p => p.Id);
-            var finalPointOfInterest = new PointOfInterestDto()
-            {
-                Id = maxPointOfInterestId,
-                Name = pointOfInterest.Name,
-                Description = pointOfInterest.Description
-            };
+
+            var finalPointOfInterest = Mapper.Map<Entities.PointOfInterest>(pointOfInterest);
             city.PointOfInterest.Add(finalPointOfInterest);
             return CreatedAtRoute("GetPointOfInterest", new
             { cityId = cityId, id = finalPointOfInterest.Id }, finalPointOfInterest); ;
