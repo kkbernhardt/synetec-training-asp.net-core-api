@@ -1,4 +1,5 @@
-﻿using CityInfo.API.Models;
+﻿using AutoMapper;
+using CityInfo.API.Models;
 using CityInfo.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,16 +26,9 @@ namespace CityInfo.API.Controllers
             //return Ok(CitiesDataStore.Current.Cities);
            
             var cityEntities = cityInfoRepository.GetCities();
-            var results = new List<CityWithoutPointOfInterestDto>();
-            foreach (var cityEntity in cityEntities)
-            {
-                results.Add(new CityWithoutPointOfInterestDto
-                {
-                    Id = cityEntity.Id,
-                    Name = cityEntity.Name,
-                    Description = cityEntity.Description
-                });
-            }
+
+            var results = Mapper.Map<IEnumerable<CityWithoutPointOfInterestDto>>(cityEntities);
+            
             return Ok(results);
         }
 
