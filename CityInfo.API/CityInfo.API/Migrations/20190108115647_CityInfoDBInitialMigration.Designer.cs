@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CityInfo.API.Migrations
 {
     [DbContext(typeof(CityInfoContext))]
-    [Migration("20190108114221_CityInfoDbInitialMigration")]
-    partial class CityInfoDbInitialMigration
+    [Migration("20190108115647_CityInfoDBInitialMigration")]
+    partial class CityInfoDBInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,9 @@ namespace CityInfo.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CityId");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -44,6 +44,9 @@ namespace CityInfo.API.Migrations
 
                     b.Property<int>("CityId");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(200);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
