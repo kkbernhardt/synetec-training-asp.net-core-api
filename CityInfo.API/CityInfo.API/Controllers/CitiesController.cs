@@ -24,11 +24,8 @@ namespace CityInfo.API.Controllers
         {
             //with inmemory database:
             //return Ok(CitiesDataStore.Current.Cities);
-           
             var cityEntities = cityInfoRepository.GetCities();
-
             var results = Mapper.Map<IEnumerable<CityWithoutPointOfInterestDto>>(cityEntities);
-            
             return Ok(results);
         }
 
