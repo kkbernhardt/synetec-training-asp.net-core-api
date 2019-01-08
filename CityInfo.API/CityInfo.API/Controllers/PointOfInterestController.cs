@@ -75,9 +75,14 @@ namespace CityInfo.API.Controllers
             }
 
             var finalPointOfInterest = Mapper.Map<Entities.PointOfInterest>(pointOfInterest);
-            city.PointOfInterest.Add(finalPointOfInterest);
-            return CreatedAtRoute("GetPointOfInterest", new
-            { cityId = cityId, id = finalPointOfInterest.Id }, finalPointOfInterest); ;
+            cityInfoRepository.AddPointOfInterestForCity(cityId, finalPointOfInterest);
+            if (!cityInfoRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
+
+            var createdPointOfInterestToReturn = Mapper.Map<Models.PointOfInterestDto>(finalPointOfInterest);
+            return Ok(createdPointOfInterestToReturn);
         }
 
         [HttpPut("{cityId}/pointsofinterest/{id}")]

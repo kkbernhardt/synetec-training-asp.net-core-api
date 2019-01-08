@@ -13,5 +13,7 @@ namespace CityInfo.API.Repositories
         City GetCity(int cityId, bool includePointOfInterest);
         IEnumerable<PointOfInterest> GetPointOfInterestForCity(int cityId);
         PointOfInterest GetPointOfInterestForCity(int cityId, int pointOfInterestId);
+        void AddPointOfInterestForCity(int cityId, PointOfInterest pointOfInterest);
+        bool Save();
     }
 }

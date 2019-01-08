@@ -45,5 +45,16 @@ namespace CityInfo.API.Repositories
             return context.PointOfInterests
                 .Where(p => p.Id == cityId && p.Id == pointOfInterestId).FirstOrDefault();
         }
+
+        public void AddPointOfInterestForCity(int cityId, PointOfInterest pointOfInterest)
+        {
+            var city = GetCity(cityId, false);
+            city.PointOfInterest.Add(pointOfInterest);
+        }
+
+        public bool Save()
+        {
+            return (context.SaveChanges() >= 0);
+        }
     }
 }
