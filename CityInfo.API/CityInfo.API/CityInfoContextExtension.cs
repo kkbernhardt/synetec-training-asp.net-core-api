@@ -55,24 +55,19 @@ namespace CityInfo.API
                 },
                 new City()
                 {
-                    Name = "Budapest",
-                    Description = "The one with hot waters.",
+                    Name = "London",
+                    Description = "The one with smart travel.",
                     PointOfInterest = new List<PointOfInterest>()
                     {
                         new PointOfInterest()
                         {
-                            Name = "Varosliget",
-                            Description = "The most visited urban park."
+                            Name = "Hyde park",
+                            Description = "The most visited urban park in England."
                         },
                         new PointOfInterest()
                         {
-                            Name = "Parliament",
-                            Description = "A beautiful parliament in the central."
-                        },
-                        new PointOfInterest()
-                        {
-                            Name = "Danube",
-                            Description = "A beautiful river through the central."
+                            Name = "Shard",
+                            Description = "A skyscraper located in central London."
                         }
                     }
                 },
@@ -92,6 +87,29 @@ namespace CityInfo.API
                             Name = "The Louvre",
                             Description = "The world largest museum."
                         }
+                    }
+                },
+                new City()
+                {
+                    Name = "Budapest",
+                    Description = "The one with hot waters.",
+                    PointOfInterest = new List<PointOfInterest>()
+                    {
+                         new PointOfInterest()
+                         {
+                             Name = "Varosliget",
+                             Description = "The most visited urban park."
+                         },
+                         new PointOfInterest()
+                         {
+                             Name = "Parliament",
+                             Description = "A beautiful parliament in the central."
+                         },
+                         new PointOfInterest()
+                         {
+                             Name = "Danube",
+                             Description = "A beautiful river through the central."
+                         }
                     }
                 }
             };
