@@ -12,8 +12,8 @@ namespace CityInfo.API.Controllers
     [Route("api/cities")]
     public class PointOfInterestController : Controller
     {
-        private LocalMailService mailService;
-        public PointOfInterestController(LocalMailService mailService)
+        private IMailService mailService;
+        public PointOfInterestController(IMailService mailService)
         {
             this.mailService = mailService;
         }
@@ -168,9 +168,10 @@ namespace CityInfo.API.Controllers
             ]*/
         }
 
-        [HttpDelete("{cityId}")]
+        [HttpDelete("{cityId}/pointsofinterest/{id}")]
         public IActionResult  DeletePointOfInterest(int cityId, int id)
         {
+            //check if they exist
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
             if (city == null)
             {
@@ -182,7 +183,11 @@ namespace CityInfo.API.Controllers
             {
                 return NotFound();
             }
+            //if exist we remove
             city.PointOfInterest.Remove(pointOfInterestFromStore);
+
+            mailService.Send("Point of interest deleted.", $"Point of interest {pointOfInterestFromStore.Name}" +
+                $"with id {pointOfInterestFromStore.Id} was deleted.");
             return NoContent();
         }
     }

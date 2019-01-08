@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace CityInfo.API.Services
 {
-    public class LocalMailService
+    public class LocalMailService : IMailService
     {
-        public string MailTo { get; set; }
-        public string MailFrom { get; set; }
+        private string mailTo = "admin@mycompany.com";
+        private string mailFrom = "noreply@mycompany.com";
         
         public void Send(string subject, string message)
         {
             //send mail - output to debug window
-            Debug.WriteLine($"Mail from {MailFrom} to {MailTo}, with LocalMailService.");
+            Debug.WriteLine($"Mail from {mailFrom} to {mailTo}, with LocalMailService.");
             Debug.WriteLine($"Subject: {subject}");
             Debug.WriteLine($"Message: {message}");
         }

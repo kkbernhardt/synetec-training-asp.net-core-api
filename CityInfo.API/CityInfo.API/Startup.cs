@@ -29,7 +29,9 @@ namespace CityInfo.API
             //        castedResolver.NamingStrategy = null;
             //    }
             //});
-            services.AddTransient<LocalMailService>();
+            
+            services.AddTransient<IMailService, LocalMailService>();
+            services.AddTransient<IMailService, CloudMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
