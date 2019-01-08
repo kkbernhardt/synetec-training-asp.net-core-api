@@ -26,6 +26,12 @@ namespace CityInfo.API
                             Id = 1,
                             Name = "Cathedral of our Lady",
                             Description = "A gothic style cathedral."
+                        },
+                        new PointOfInterestDto()
+                        {
+                            Id = 1,
+                            Name = "Cathedral of our Lady",
+                            Description = "A gothic style cathedral."
                         }
                     }
                 },
@@ -37,6 +43,18 @@ namespace CityInfo.API
                     Description = "The one with the cathedral that was never finished.",
                     PointOfInterest = new List<PointOfInterestDto>()
                     {
+                         new PointOfInterestDto()
+                        {
+                            Id = 2,
+                            Name = "Antwerpen Central Station",
+                            Description = "The finest example of railway architecture."
+                        },
+                         new PointOfInterestDto()
+                        {
+                            Id = 2,
+                            Name = "Antwerpen Central Station",
+                            Description = "The finest example of railway architecture."
+                        },
                          new PointOfInterestDto()
                         {
                             Id = 2,
