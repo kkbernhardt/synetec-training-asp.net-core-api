@@ -55,19 +55,24 @@ namespace CityInfo.API
                 },
                 new City()
                 {
-                    Name = "London",
-                    Description = "The one with smart travel.",
+                    Name = "Budapest",
+                    Description = "The one with hot waters.",
                     PointOfInterest = new List<PointOfInterest>()
                     {
                         new PointOfInterest()
                         {
-                            Name = "Hyde park",
-                            Description = "The most visited urban park in England."
+                            Name = "Varosliget",
+                            Description = "The most visited urban park."
                         },
                         new PointOfInterest()
                         {
-                            Name = "Shard",
-                            Description = "A skyscraper located in central London."
+                            Name = "Parliament",
+                            Description = "A beautiful parliament in the central."
+                        },
+                        new PointOfInterest()
+                        {
+                            Name = "Danube",
+                            Description = "A beautiful river through the central."
                         }
                     }
                 },
