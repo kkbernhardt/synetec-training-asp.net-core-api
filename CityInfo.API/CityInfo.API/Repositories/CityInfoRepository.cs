@@ -16,7 +16,7 @@ namespace CityInfo.API.Repositories
             this.context = context;
         }
 
-        public City Get(int cityId, bool includePointOfInterest)
+        public City GetCity(int cityId, bool includePointOfInterest)
         {
             if (includePointOfInterest)
             {
