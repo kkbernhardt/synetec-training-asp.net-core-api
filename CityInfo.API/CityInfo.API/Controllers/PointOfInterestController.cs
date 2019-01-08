@@ -1,4 +1,5 @@
 ﻿using CityInfo.API.Models;
+using CityInfo.API.Repositories;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,20 +14,41 @@ namespace CityInfo.API.Controllers
     public class PointOfInterestController : Controller
     {
         private IMailService mailService;
-        public PointOfInterestController(IMailService mailService)
+        private ICityInfoRepository cityInfoRepository;
+        public PointOfInterestController(IMailService mailService, ICityInfoRepository cityInfoRepository)
         {
             this.mailService = mailService;
+            this.cityInfoRepository = cityInfoRepository;
         }
 
         [HttpGet("{cityId}/pointsofinterest")]
         public IActionResult GetPointOfInterest(int cityId)
         {
-            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null)
+            //var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+            try
             {
-                return NotFound();
+                if (!cityInfoRepository.CityExist(cityId))
+                {
+                    return NotFound();
+                }
+                var pointsOfInterestForCity = cityInfoRepository.GetPointOfInterestForCity(cityId);
+                var pointsOfInterestForCityResult = new List<PointOfInterestDto>();
+                foreach (var point in pointsOfInterestForCity)
+                {
+                    pointsOfInterestForCityResult.Add(new PointOfInterestDto()
+                    {
+                        Id = point.Id,
+                        Name = point.Name,
+                        Description = point.Description
+                    });
+                }
+                return Ok(pointsOfInterestForCityResult);
             }
-            return Ok(city.PointOfInterest);
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         [HttpGet("{cityId}/pointsofinterest/{id}", Name = "GetPointOfInterest")]

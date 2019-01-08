@@ -15,6 +15,10 @@ namespace CityInfo.API.Repositories
         {
             this.context = context;
         }
+        public bool CityExist(int cityId)
+        {
+            return context.Cities.Any(c => c.Id == cityId);
+        }
 
         public City GetCity(int cityId, bool includePointOfInterest)
         {

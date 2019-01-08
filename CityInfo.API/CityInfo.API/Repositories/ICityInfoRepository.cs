@@ -8,6 +8,7 @@ namespace CityInfo.API.Repositories
 {
     public interface ICityInfoRepository
     {
+        bool CityExist(int cityId);
         IEnumerable<City> GetCities();
         City GetCity(int cityId, bool includePointOfInterest);
         IEnumerable<PointOfInterest> GetPointOfInterestForCity(int cityId);
