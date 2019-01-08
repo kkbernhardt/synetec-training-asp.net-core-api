@@ -41,31 +41,11 @@ namespace CityInfo.API.Controllers
             //when the query string in in the url: http://localhost/api/cities/1?incudePointOfInterest=true
             if (includePointOfInterest)
             {
-                var cityResult = new CityDto()
-                {
-                    Id = city.Id,
-                    Name = city.Name,
-                    Description = city.Description
-                };
-                foreach (var point in city.PointOfInterest)
-                {
-                    cityResult.PointOfInterest.Add(
-                        new PointOfInterestDto(){
-                            Id = point.Id,
-                            Name = point.Name,
-                            Description = point.Description
-                        });
-                }
+                var cityResult = Mapper.Map<CityDto>(city);
                 return Ok(cityResult);
             }
 
-            var cityWithOutPointsOfInterestResult =
-                new CityWithoutPointOfInterestDto()
-                {
-                    Id = city.Id,
-                    Name = city.Name,
-                    Description = city.Description
-                };
+            var cityWithOutPointsOfInterestResult = Mapper.Map<CityWithoutPointOfInterestDto>(city);
             return Ok(cityWithOutPointsOfInterestResult);
 
             /* used for inmemory database
