@@ -1,4 +1,5 @@
-﻿using CityInfo.API.Models;
+﻿using AutoMapper;
+using CityInfo.API.Models;
 using CityInfo.API.Repositories;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -24,25 +25,13 @@ namespace CityInfo.API.Controllers
         [HttpGet("{cityId}/pointsofinterest")]
         public IActionResult GetPointOfInterest(int cityId)
         {
-            //var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
             if (!cityInfoRepository.CityExist(cityId))
             {
                 return NotFound();
             }
             var pointsOfInterestForCity = cityInfoRepository.GetPointOfInterestForCity(cityId);
-            var pointsOfInterestForCityResult = new List<PointOfInterestDto>();
-            foreach (var point in pointsOfInterestForCity)
-            {
-                pointsOfInterestForCityResult.Add(new PointOfInterestDto()
-                {
-                    Id = point.Id,
-                    Name = point.Name,
-                    Description = point.Description
-                });
-            }
+            var pointsOfInterestForCityResult = Mapper.Map<IEnumerable<PointOfInterestDto>>(pointsOfInterestForCity);
             return Ok(pointsOfInterestForCityResult);
-
-
         }
 
         [HttpGet("{cityId}/pointsofinterest/{id}", Name = "GetPointOfInterest")]
@@ -57,12 +46,7 @@ namespace CityInfo.API.Controllers
             {
                 return NotFound();
             }
-            var pointOfInterestResult = new PointOfInterestDto()
-            {
-                Id = pointOfInterest.Id,
-                Name = pointOfInterest.Name,
-                Description = pointOfInterest.Description
-            };
+            var pointOfInterestResult = Mapper.Map<PointOfInterestDto>(pointOfInterest);
             return Ok(pointOfInterestResult);
             /*for using inmemory database
              var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
