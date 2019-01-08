@@ -16,13 +16,11 @@ namespace CityInfo.API.Entities
         public DbSet<City> Cities { get; set; }
         public DbSet<PointOfInterest> PointOfInterests { get; set; }
 
-
         /*One way of makind connected to the database:
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("connectionstring");
             base.OnConfiguring(optionsBuilder);
         }*/
-
     }
 }
