@@ -66,7 +66,7 @@ namespace CityInfo.API.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             if (!cityInfoRepository.CityExist(cityId))
@@ -100,7 +100,7 @@ namespace CityInfo.API.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             if (!cityInfoRepository.CityExist(cityId))
@@ -143,12 +143,23 @@ namespace CityInfo.API.Controllers
             var pointOfInterestToPatch = Mapper.Map<PointOfInterestForUpdateDto>(pointOfInterestEntity);
 
             patchDoc.ApplyTo(pointOfInterestToPatch, ModelState);
-            
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            if (pointOfInterestToPatch.Description == pointOfInterestToPatch.Name)
+            {
+                ModelState.AddModelError("Description", "The provided description should be different from the name.");
+            }
+
             TryValidateModel(pointOfInterestToPatch);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            
             Mapper.Map(pointOfInterestToPatch, pointOfInterestEntity);
             if (!cityInfoRepository.Save())
             {
